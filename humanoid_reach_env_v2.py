@@ -230,8 +230,8 @@ class HumanoidReachEnv(gym.Env):
         # velocity term
         # reward += np.exp( -dist**2) * (np.exp( -np.linalg.norm(vel)**2) -1)
         # reward += (dist**2) * (np.exp( -np.linalg.norm(vel)**2) -1)
-
-        reward += np.exp( -dist**2) * (-np.linalg.norm(vel)**2)
+        reward += (np.exp( -dist**2) -1) * (np.exp(-np.linalg.norm(vel)**2)-1)
+        # reward += np.exp( -dist**2) * (-np.linalg.norm(vel)**2)
 
         # reward += 5e-9 -np.sum(np.square(vel))
         jerk = (self.prev_state["qacc"] - self.left_arm_qacc) / self.model.opt.timestep # jerk = (a_0 - a_1) / delta_t
